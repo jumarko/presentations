@@ -1,4 +1,4 @@
-(ns clojure-repl-experiments.presentation.01-game-of-life)
+(ns clojure-presentation.presentation.01-game-of-life)
 
 ;;;; So what's the problem?
 

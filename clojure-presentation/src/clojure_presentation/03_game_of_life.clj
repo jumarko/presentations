@@ -1,6 +1,7 @@
-(ns clojure-repl-experiments.presentation.03-game-of-life)
+(ns clojure-presentation.presentation.03-game-of-life)
 
 ;;;; https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life
+;;;; http://clj-me.cgrand.net/2011/08/19/conways-game-of-life/
 ;;;; ...
 ;;;; At each step in time, the following transitions occur:
 ;;;; 1 .Any live cell with fewer than two live neighbours dies, as if caused by underpopulation.
@@ -69,9 +70,9 @@
   (iterate step initial-world))
 
 (take 3 (life my-world))
-(#{[1 0] [1 1] [1 2]}
- #{[1 1] [2 1] [0 1]}
- #{[1 0] [1 1] [1 2]})
+#_(#{[1 0] [1 1] [1 2]}
+   #{[1 1] [2 1] [0 1]}
+   #{[1 0] [1 1] [1 2]})
 
 
 ;;; everything works now but is a little bit messy
@@ -89,7 +90,7 @@
 
 
 ;;; we can do better
-
+;;; Christopher Grand: http://clj-me.cgrand.net/2011/08/19/conways-game-of-life/
 (defn step [world]
   (set
    (for [[cell freq] (frequencies (mapcat neighbors world))
@@ -97,6 +98,6 @@
      cell)))
 
 (take 3 (life my-world))
-(#{[1 0] [1 1] [1 2]}
- #{[1 1] [2 1] [0 1]}
- #{[1 0] [1 1] [1 2]})
+#_(#{[1 0] [1 1] [1 2]}
+   #{[1 1] [2 1] [0 1]}
+   #{[1 0] [1 1] [1 2]})

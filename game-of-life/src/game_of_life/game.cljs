@@ -3,6 +3,7 @@
             [quil.middleware :as m]))
 
 ;;; https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life
+;;; http://clj-me.cgrand.net/2011/08/19/conways-game-of-life/
 ;;; The universe of the Game of Life is an infinite two-dimensional orthogonal
 ;;; grid of square cells, each of which is in one of two possible states,
 ;;; alive or dead, or "populated" or "unpopulated".
@@ -50,9 +51,9 @@
 
 (defn setup []
   (q/frame-rate 2)
-  glider)
+  [glider glider])
 
-(defn draw [state]
+(defn draw [[_initial-state state]]
   (doseq [x (range grid-size)
           y (range grid-size)]
     (if (state [x y])
@@ -60,15 +61,28 @@
       (q/fill 255 255 255))
     (q/rect (* 20 x) (* 20 y) 20 20)))
 
-(defn update-state [state]
-  (step state))
+(defn end-of-board?
+  [board-size state]
+  (some (fn [[x y]] (or (< board-size x) (< board-size y)))
+        state))
 
-(q/defsketch example
-  :host "game-canvas"
-  :title "Oh so many grey circles"
-  :settings #(q/smooth 2)
-  :setup setup
-  :update update-state
-  :draw draw
-  :size [401 401]
-  :middleware [m/fun-mode])
+(defn update-state [[initial-state state]]
+  (prn "DEBUG:: " state)
+  (let [new-state (step state)]
+    (if (end-of-board? grid-size new-state)
+      [initial-state initial-state]
+      [initial-state new-state])))
+
+(comment
+
+  ;; draw the game board:
+  (q/defsketch example
+    :host "game-canvas"
+    :title "Oh so many grey circles"
+    :settings #(q/smooth 2)
+    :setup setup
+    :update update-state
+    :draw draw
+    :size [401 401]
+    :middleware [m/fun-mode])
+  )

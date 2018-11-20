@@ -1,5 +1,7 @@
-(ns clojure-repl-experiments.presentation.game-of-life
+(ns clojure-presentation.presentation.game-of-life
   (:require [quil.core :as q]))
+
+;;; http://clj-me.cgrand.net/2011/08/19/conways-game-of-life/
 
 (def my-world #{[1 2] [1 1] [1 0]})
 
@@ -28,11 +30,11 @@
   (iterate step initial-world))
 
 (take 5 (life my-world))
-(#{[1 0] [1 1] [1 2]}
- #{[0 1] [1 1] [2 1]}
- #{[1 2] [1 1] [1 0]} 
- #{[0 1] [1 1] [2 1]} 
- #{[1 2] [1 1] [1 0]})
+#_(#{[1 0] [1 1] [1 2]}
+   #{[0 1] [1 1] [2 1]}
+   #{[1 2] [1 1] [1 0]} 
+   #{[0 1] [1 1] [2 1]} 
+   #{[1 2] [1 1] [1 0]})
 
 
 ;;; quil visualisation
